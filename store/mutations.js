@@ -1,17 +1,19 @@
+import Vue from 'vue';
+
 export default {
   PAGE: (state, page) => {
-    state.page = page;
+    Vue.set(state, 'page', page);
   },
   POSTS: (state, posts) => {
-    state.posts = posts;
+    Vue.set(state, 'posts', posts.data);
   },
   POST: (state, post) => {
-    state.post = post;
+    Vue.set(state, 'post', post);
   },
   CATEGORY: (state, category) => {
-    state.category = category;
+    Vue.set(state, 'category', category.data[0]);
   },
   CATEGORIES: (state, categories) => {
-    state.categories = categories;
-  }
+    Vue.set(state, 'categories', categories);
+  },
 };

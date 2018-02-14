@@ -1,18 +1,15 @@
 module.exports = {
   root: true,
-  parser: "babel-eslint",
+  parser: 'babel-eslint',
   env: {
     browser: true,
     node: true
   },
-  extends: "standard",
+  extends: 'airbnb-base',
   // required to lint *.vue files
-  plugins: ["html"],
+  plugins: ['html'],
   // add your custom rules here
   rules: {
-    "space-before-function-paren": 0,
-    semi: 0,
-    quotes: 0
   },
   globals: {}
 };
