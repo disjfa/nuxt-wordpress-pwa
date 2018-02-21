@@ -25,11 +25,6 @@
         ],
       };
     },
-    data() {
-      return {
-        title: 'default',
-      };
-    },
     mounted() {
       this.$store.dispatch('getPosts');
     },

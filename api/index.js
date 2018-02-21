@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'https://hapjezoetermeer.nl/wp-json/wp/v2';
+const baseUrl = 'https://demo.wp-api.org/wp-json/wp/v2';
 
 export default {
   baseUrl,
@@ -10,24 +10,7 @@ export default {
    * @return Promise Filtered response
    */
   getPage(slug) {
-    return axios.get(`#{baseURL}/pages?slug=${slug}`)
-      .then((response) => {
-        const data = [...response.data][0];
-        return {
-          content: data.content.rendered,
-          author: data.author,
-          date: data.date,
-          date_gmt: data.date_gmt,
-          excerpt: data.excerpt.rendered,
-          featured_media: data.featured_media,
-          guid: data.guid.rendered,
-          link: data.link,
-          slug: data.slug,
-          title: data.title.rendered,
-        };
-      })
-      .catch(() => {
-      });
+    return axios.get(`${this.baseUrl}/pages?slug=${slug}`);
   },
 
   /**
@@ -36,29 +19,7 @@ export default {
    * @return Promise Filtered response
    */
   getPost(slug) {
-    return new Promise((resolve, reject) => {
-      axios.defaults.baseURL = this.baseUrl;
-      axios.get(`posts?slug=${slug}`).then((response) => {
-        const data = [...response.data][0];
-        if (response.status === 200 && response.data.length > 0) {
-          const filtered = {
-            content: data.content.rendered,
-            author: data.author,
-            date: data.date,
-            date_gmt: data.date_gmt,
-            excerpt: data.excerpt.rendered,
-            featured_media: data.featured_media,
-            guid: data.guid.rendered,
-            link: data.link,
-            slug: data.slug,
-            title: data.title.rendered,
-          };
-          resolve(filtered);
-        } else {
-          reject(response);
-        }
-      });
-    });
+    return axios.get(`${this.baseUrl}/posts?slug=${slug}`);
   },
   /**
    * Return all posts (paginated)
@@ -77,14 +38,6 @@ export default {
     return axios.get(`${this.baseUrl}/categories?slug=${slug}`);
   },
   getCategories() {
-    return new Promise((resolve) => {
-      axios.defaults.baseURL = this.baseUrl;
-      return axios.get('categories').then((response) => {
-        const data = [...response.data];
-        if (response.status === 200 && response.data.length > 0) {
-          resolve(data);
-        }
-      });
-    });
+    return axios.get(`${this.baseUrl}/categories`);
   },
 };

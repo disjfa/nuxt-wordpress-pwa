@@ -1,6 +1,7 @@
 <template>
     <div v-if="category">
         <h1>{{ category.name }}</h1>
+        <div v-html="category.description"></div>
         <post-list v-if="posts" :posts="posts"></post-list>
     </div>
 </template>
@@ -27,7 +28,6 @@
     },
     data() {
       return {
-        title: 'default',
         slug: false,
       };
     },
@@ -35,14 +35,15 @@
       this.slug = this.$route.params.slug;
       // this.$store.dispatch('getCategory', this.$route.params.slug)
       this.$store.dispatch('getCategories');
-      this.$store.dispatch('getCategory', this.slug);
     },
     computed: {
       ...mapGetters([
         'posts',
-        'category',
         'categories',
       ]),
+      category() {
+        return this.$store.getters.category(this.$route.params.slug);
+      },
     },
     watch: {
       category(to) {
